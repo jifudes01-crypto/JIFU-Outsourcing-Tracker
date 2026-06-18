@@ -1,0 +1,14 @@
+import { DashboardClient } from "@/components/dashboard-client";
+import { getCurrentProfile } from "@/lib/auth";
+import { getCategories, getOrders, getProfiles, getVendors } from "@/lib/data";
+
+export default async function DashboardPage() {
+  const [{ profile }, orders, vendors, categories, profiles] = await Promise.all([
+    getCurrentProfile(),
+    getOrders(),
+    getVendors(),
+    getCategories(),
+    getProfiles()
+  ]);
+  return <DashboardClient orders={orders} vendors={vendors} categories={categories} profiles={profiles} profile={profile} />;
+}
